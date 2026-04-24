@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SettleSmartUSA — North Carolina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d2b5e;
+    --navy-mid: #1a4b8c;
+    --red: #c0392b;
+    --red-light: #e74c3c;
+    --gold: #f0a500;
+    --white: #ffffff;
+    --off-white: #f7f5f0;
+    --light-gray: #edeae3;
+    --mid-gray: #9a9590;
+    --text: #1a1a1a;
+    --text-muted: #5a5750;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Outfit', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--white);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ─────────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13, 43, 94, 0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    height: 68px;
+    display: flex; align-items: center;
+    padding: 0 2rem;
+    gap: 2rem;
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .nav-logo-mark {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--red) 0%, var(--gold) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-weight: 900; color: #fff; font-size: 15px;
+    letter-spacing: -1px; flex-shrink: 0;
+  }
+  .nav-logo-text { font-family: var(--serif); font-size: 17px; font-weight: 700; color: #fff; }
+  .nav-logo-text span { color: var(--gold); }
+  .nav-logo-sub { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45); display: block; margin-top: -3px; }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 0; flex: 1;
+  }
+  .nav-item { position: relative; }
+  .nav-item > a {
+    font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.75);
+    text-decoration: none; padding: 8px 14px; display: block;
+    border-radius: 6px; transition: all 0.2s; white-space: nowrap;
+  }
+  .nav-item > a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .nav-item:hover .dropdown { opacity: 1; pointer-events: all; transform: translateY(0); }
+
+  .dropdown {
+    position: absolute; top: calc(100% + 8px); left: 0;
+    background: var(--navy); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 8px; min-width: 210px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    opacity: 0; pointer-events: none;
+    transform: translateY(-8px); transition: all 0.2s;
+  }
+  .dropdown a {
+    display: block; font-size: 12.5px; padding: 8px 12px;
+    border-radius: 6px; text-decoration: none; color: rgba(255,255,255,0.7);
+    transition: all 0.15s;
+  }
+  .dropdown a:hover { background: rgba(255,255,255,0.08); color: #fff; }
+
+  .nav-right { display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0; }
+
+  .nav-subdomain {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    background: rgba(240,165,0,0.15); color: var(--gold);
+    border: 1px solid rgba(240,165,0,0.3);
+    padding: 4px 10px; border-radius: 20px;
+  }
+  .nav-btn {
+    font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+    background: var(--red); color: #fff; border: none;
+    padding: 8px 18px; border-radius: 20px; cursor: pointer;
+    transition: background 0.2s; white-space: nowrap;
+  }
+  .nav-btn:hover { background: var(--red-light); }
+
+  .refugee-nav-tag {
+    font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    background: var(--red); color: #fff; padding: 2px 6px; border-radius: 8px; margin-left: 4px;
+    vertical-align: middle;
+  }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 2rem 60px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(192,57,43,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 80%, rgba(26,75,140,0.5) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 60%, rgba(240,165,0,0.06) 0%, transparent 50%);
+  }
+
+  .hero-stars {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  .star {
+    position: absolute; border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    animation: twinkle var(--d, 4s) var(--delay, 0s) infinite alternate;
+  }
+  @keyframes twinkle { from { opacity: 0.1; } to { opacity: 0.8; } }
+
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); font-weight: 600;
+    margin-bottom: 1.5rem; position: relative;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: ''; flex: 1; max-width: 60px;
+    height: 1px; background: rgba(240,165,0,0.4);
+  }
+
+  .hero h1 {
+    font-family: var(--serif); font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 900; color: #fff; line-height: 1.1;
+    max-width: 820px; margin: 0 auto 1.5rem; position: relative;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.72);
+    max-width: 580px; margin: 0 auto 2.5rem; font-weight: 300; position: relative;
+  }
+
+  .hero-cta {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    position: relative;
+  }
+  .btn-primary {
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    background: var(--red); color: #fff; border: none;
+    padding: 14px 32px; border-radius: 30px; cursor: pointer;
+    transition: all 0.2s; letter-spacing: 0.3px;
+    box-shadow: 0 4px 24px rgba(192,57,43,0.4);
+  }
+  .btn-primary:hover { background: var(--red-light); transform: translateY(-1px); box-shadow: 0 8px 32px rgba(192,57,43,0.5); }
+
+  .btn-ghost {
+    font-family: var(--sans); font-size: 14px; font-weight: 500;
+    background: transparent; color: rgba(255,255,255,0.85);
+    border: 1.5px solid rgba(255,255,255,0.3); padding: 14px 32px;
+    border-radius: 30px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; background: rgba(255,255,255,0.06); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: rgba(255,255,255,0.3); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+  .hero-scroll::after { content: '↓'; font-size: 16px; }
+
+  /* ── STATE BAR ───────────────────────────────────────────── */
+  .state-bar {
+    background: #0a2147;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 14px 2rem;
+  }
+  .state-bar-label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); text-align: center; margin-bottom: 10px;
+  }
+  .state-pills {
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+  }
+  .state-pill {
+    font-size: 11.5px; font-weight: 500;
+    background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 5px 13px; border-radius: 20px; cursor: pointer;
+    transition: all 0.2s; text-decoration: none;
+  }
+  .state-pill:hover { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.25); }
+  .state-pill.active { background: var(--red); color: #fff; border-color: var(--red); }
+  .state-pill.more { color: rgba(255,255,255,0.4); border-style: dashed; }
+
+  /* ── STATS ───────────────────────────────────────────────── */
+  .stats-strip {
+    background: var(--navy-mid);
+    display: flex; flex-wrap: wrap; justify-content: center;
+    padding: 1.5rem 2rem; gap: 0;
+  }
+  .stat {
+    text-align: center; padding: 0.5rem 2rem;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num { font-family: var(--serif); font-size: 1.8rem; font-weight: 700; color: var(--gold); line-height: 1; }
+  .stat-lbl { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+  /* ── SECTIONS ────────────────────────────────────────────── */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--red); font-weight: 600; margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; line-height: 1.2;
+  }
+  .section-sub {
+    font-size: 1.05rem; color: var(--text-muted); max-width: 600px;
+    margin: 0 auto 3rem; text-align: center; font-weight: 300;
+  }
+  .text-center { text-align: center; }
+
+  /* ── THREE PILLARS ───────────────────────────────────────── */
+  .pillars { background: var(--off-white); }
+
+  .pillar-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5px; background: var(--light-gray);
+    border-radius: 16px; overflow: hidden;
+  }
+  .pillar {
+    background: var(--white); padding: 2.5rem;
+    position: relative; overflow: hidden; transition: all 0.3s;
+  }
+  .pillar:hover { background: var(--navy); }
+  .pillar:hover .pillar-title, .pillar:hover .pillar-sub, .pillar:hover .pillar-item { color: rgba(255,255,255,0.85); }
+  .pillar:hover .pillar-title { color: var(--gold); }
+  .pillar:hover .pillar-num { color: rgba(255,255,255,0.08); }
+  .pillar:hover .pillar-link { color: var(--gold); border-color: rgba(240,165,0,0.4); }
+
+  .pillar-num {
+    font-family: var(--serif); font-size: 8rem; font-weight: 900;
+    color: var(--off-white); line-height: 1; position: absolute;
+    top: -1rem; right: 1.5rem; pointer-events: none; transition: color 0.3s;
+  }
+  .pillar-bar {
+    width: 40px; height: 3px; margin-bottom: 1.5rem; border-radius: 2px;
+  }
+  .pillar:nth-child(1) .pillar-bar { background: var(--navy-mid); }
+  .pillar:nth-child(2) .pillar-bar { background: var(--red); }
+  .pillar:nth-child(3) .pillar-bar { background: var(--gold); }
+
+  .pillar-title {
+    font-family: var(--serif); font-size: 1.5rem; font-weight: 700;
+    color: var(--navy); margin-bottom: 0.5rem; transition: color 0.3s; position: relative;
+  }
+  .pillar-sub {
+    font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;
+    transition: color 0.3s; position: relative;
+  }
+  .pillar-items { list-style: none; margin-bottom: 1.5rem; position: relative; }
+  .pillar-item {
+    font-size: 0.875rem; color: var(--text-muted); padding: 3px 0 3px 16px;
+    position: relative; transition: color 0.3s;
+  }
+  .pillar-item::before { content: '→'; position: absolute; left: 0; color: var(--red); font-size: 11px; top: 5px; }
+  .pillar:hover .pillar-item::before { color: var(--gold); }
+
+  .pillar-link {
+    font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--navy-mid); text-decoration: none;
+    border-bottom: 1px solid rgba(26,75,140,0.25);
+    padding-bottom: 2px; transition: all 0.2s; position: relative;
+  }
+
+  /* ── PORTAL CARDS ────────────────────────────────────────── */
+  .portal { background: var(--white); }
+  .portal-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem; margin-bottom: 3rem;
+  }
+  .portal-card {
+    border: 1.5px solid var(--light-gray); border-radius: 14px;
+    padding: 1.5rem; transition: all 0.25s; cursor: pointer;
+    position: relative; overflow: hidden;
+  }
+  .portal-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .portal-card:hover { border-color: var(--navy-mid); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(13,43,94,0.12); }
+  .portal-card:hover::before { opacity: 1; }
+  .portal-card:nth-child(1)::before { background: var(--navy-mid); }
+  .portal-card:nth-child(2)::before { background: var(--gold); }
+  .portal-card:nth-child(3)::before { background: var(--red); }
+  .portal-card:nth-child(4)::before { background: var(--navy-mid); }
+  .portal-card:nth-child(5)::before { background: var(--gold); }
+  .portal-card:nth-child(6)::before { background: var(--red); }
+
+  .portal-icon {
+    font-size: 1.5rem; margin-bottom: 0.75rem; display: block;
+    width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    border-radius: 10px; background: var(--off-white); margin-bottom: 1rem;
+  }
+  .portal-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--navy); }
+  .portal-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+  .portal-cta { text-align: center; }
+  .portal-cta p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
+
+  /* ── ABOUT NC PREVIEW ────────────────────────────────────── */
+  .about { background: var(--off-white); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+
+  .about-text .section-title { text-align: left; }
+  .about-text .section-sub { text-align: left; margin: 0 0 2rem; }
+  .about-text p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+
+  .about-facts { display: flex; flex-direction: column; gap: 12px; }
+  .fact-card {
+    background: var(--white); border-radius: 12px; padding: 1.25rem 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    border-left: 3px solid var(--navy-mid);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .fact-card:nth-child(2) { border-color: var(--red); }
+  .fact-card:nth-child(3) { border-color: var(--gold); }
+  .fact-card:nth-child(4) { border-color: var(--navy-mid); }
+  .fact-val { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--navy); min-width: 90px; }
+  .fact-lbl { font-size: 0.875rem; color: var(--text-muted); }
+
+  /* ── REFUGEE BANNER ──────────────────────────────────────── */
+  .refugee {
+    background: linear-gradient(135deg, #0a2147 0%, #1a4b8c 40%, #8b1c12 100%);
+    padding: 5rem 2rem;
+  }
+  .refugee-inner {
+    max-width: 800px; margin: 0 auto; text-align: center;
+  }
+  .refugee-badge {
+    display: inline-block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 600; color: var(--gold); background: rgba(240,165,0,0.12);
+    border: 1px solid rgba(240,165,0,0.3); padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+  .refugee h2 {
+    font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700; color: #fff; margin-bottom: 1rem; line-height: 1.2;
+  }
+  .refugee p { color: rgba(255,255,255,0.75); font-size: 1rem; margin-bottom: 2rem; max-width: 580px; margin-left: auto; margin-right: auto; }
+  .refugee-items {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 2.5rem;
+  }
+  .refugee-item {
+    font-size: 12px; color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    padding: 6px 14px; border-radius: 20px;
+  }
+  .btn-light {
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    background: #fff; color: var(--navy); border: none;
+    padding: 14px 36px; border-radius: 30px; cursor: pointer;
+    transition: all 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .btn-light:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+
+  /* ── EXPLORE STRIP ───────────────────────────────────────── */
+  .explore { background: var(--white); }
+  .explore-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  .explore-card {
+    border-radius: 14px; overflow: hidden; position: relative;
+    aspect-ratio: 3/4; cursor: pointer;
+    transition: transform 0.3s;
+    background: var(--navy);
+  }
+  .explore-card:hover { transform: scale(1.02); }
+  .explore-card-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0.5; transition: opacity 0.3s;
+  }
+  .explore-card:hover .explore-card-bg { opacity: 0.65; }
+
+  .explore-card:nth-child(1) .explore-card-bg { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='533'%3E%3Crect fill='%23164e8a' width='400' height='533'/%3E%3Ccircle cx='200' cy='150' r='80' fill='%23c0392b' opacity='0.3'/%3E%3Ccircle cx='100' cy='300' r='50' fill='%23f0a500' opacity='0.2'/%3E%3C/svg%3E"); }
+  .explore-card:nth-child(2) .explore-card-bg { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='533'%3E%3Crect fill='%230d4a2e' width='400' height='533'/%3E%3Ccircle cx='200' cy='200' r='120' fill='%231a8a50' opacity='0.3'/%3E%3C/svg%3E"); }
+  .explore-card:nth-child(3) .explore-card-bg { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='533'%3E%3Crect fill='%23882010' width='400' height='533'/%3E%3Ccircle cx='200' cy='200' r='100' fill='%23f0a500' opacity='0.25'/%3E%3C/svg%3E"); }
+  .explore-card:nth-child(4) .explore-card-bg { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='533'%3E%3Crect fill='%23152e5a' width='400' height='533'/%3E%3Ccircle cx='200' cy='180' r='90' fill='%23ffffff' opacity='0.08'/%3E%3C/svg%3E"); }
+  .explore-card:nth-child(5) .explore-card-bg { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='533'%3E%3Crect fill='%234a1a0a' width='400' height='533'/%3E%3Ccircle cx='200' cy='200' r='110' fill='%23c0392b' opacity='0.2'/%3E%3C/svg%3E"); }
+
+  .explore-card-body {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 1.25rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%);
+  }
+  .explore-card-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .explore-card-sub { font-size: 0.75rem; color: rgba(255,255,255,0.65); }
+  .explore-card-tag {
+    position: absolute; top: 1rem; right: 1rem;
+    font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--gold); background: rgba(0,0,0,0.5); padding: 3px 8px; border-radius: 10px;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    background: #080f1e;
+    color: rgba(255,255,255,0.55);
+    padding: 4rem 2rem 2rem;
+  }
+  .footer-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+
+  .footer-brand-name { font-family: var(--serif); font-size: 1.3rem; color: #fff; margin-bottom: 0.75rem; }
+  .footer-brand-name span { color: var(--gold); }
+  .footer-brand-desc { font-size: 0.85rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .footer-states { display: flex; flex-wrap: wrap; gap: 6px; }
+  .footer-state { font-size: 11px; color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); border-radius: 4px; padding: 3px 8px; }
+
+  .footer-col h4 {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); margin-bottom: 1rem;
+  }
+  .footer-col a {
+    display: block; font-size: 13px; color: rgba(255,255,255,0.55);
+    text-decoration: none; margin-bottom: 8px; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: rgba(255,255,255,0.9); }
+  .footer-col a.active { color: var(--gold); }
+
+  .footer-bottom {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-size: 12px;
+  }
+  .footer-bottom a { color: rgba(255,255,255,0.3); text-decoration: none; }
+
+  /* ── ANIMATIONS ──────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.7s ease both; }
+  .fade-up-1 { animation-delay: 0.1s; }
+  .fade-up-2 { animation-delay: 0.25s; }
+  .fade-up-3 { animation-delay: 0.4s; }
+  .fade-up-4 { animation-delay: 0.55s; }
+
+  /* ── LIFE IN NC PREVIEW ──────────────────────────────────── */
+  .life { background: var(--off-white); }
+  .life-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--light-gray); border-radius: 16px; overflow: hidden;
+  }
+  @media (max-width: 900px) { .life-grid { grid-template-columns: repeat(2, 1fr); } }
+  .life-tile {
+    background: var(--white); padding: 1.75rem 1.5rem;
+    display: flex; flex-direction: column; gap: 8px;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .life-tile:hover { background: var(--navy); }
+  .life-tile:hover .life-tile-title, .life-tile:hover .life-tile-sub { color: rgba(255,255,255,0.85); }
+  .life-tile:hover .life-tile-title { color: #fff; }
+  .life-tile-icon { font-size: 1.6rem; margin-bottom: 4px; }
+  .life-tile-title { font-weight: 600; font-size: 0.95rem; color: var(--navy); transition: color 0.2s; }
+  .life-tile-sub { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; transition: color 0.2s; }
+
+  /* ── MOBILE ──────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .stat { padding: 0.5rem 1rem; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">SS</div>
+    <div>
+      <div class="nav-logo-text">Settle<span>Smart</span>USA</div>
+      <span class="nav-logo-sub">North Carolina</span>
+    </div>
+  </a>
+
+  <div class="nav-links">
+    <div class="nav-item"><a href="#">Our Mission</a></div>
+    <div class="nav-item">
+      <a href="#">About NC ▾</a>
+      <div class="dropdown">
+        <a href="#">Government structure</a>
+        <a href="#">Population & demographics</a>
+        <a href="#">Economy</a>
+        <a href="#">Income & employment</a>
+        <a href="#">Counties</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Life in NC ▾</a>
+      <div class="dropdown">
+        <a href="#">Education & schools</a>
+        <a href="#">Housing & real estate</a>
+        <a href="#">Healthcare & medical</a>
+        <a href="#">Transportation</a>
+        <a href="#">Food & dining</a>
+        <a href="#">Entertainment & sports</a>
+        <a href="#">Seasons & weather</a>
+        <a href="#">Shopping</a>
+        <a href="#">Slang words</a>
+        <a href="#">Small town sights</a>
+        <a href="#">Radio stations</a>
+        <a href="#">Vets & pets</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Explore NC ▾</a>
+      <div class="dropdown">
+        <a href="#">Arts & music</a>
+        <a href="#">Beaches & outdoors</a>
+        <a href="#">Festivals & events</a>
+        <a href="#">Museums & history</a>
+        <a href="#">State tourism & travel</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Refugees <span class="refugee-nav-tag">NEW</span></a>
+    </div>
+  </div>
+
+  <div class="nav-right">
+    <span class="nav-subdomain">nc.settlesmart.com</span>
+    <button class="nav-btn">Member portal</button>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section class="hero" id="home">
+  <div class="hero-stars" id="stars"></div>
+
+  <div class="hero-eyebrow fade-up">Your trusted relocation guide</div>
+  <h1 class="fade-up fade-up-1">
+    Your new home is<br><em>waiting for you</em><br>in North Carolina
+  </h1>
+  <p class="hero-sub fade-up fade-up-2">
+    Everything you need to settle, thrive, and feel at home in the United States — from first steps to full roots.
+  </p>
+  <div class="hero-cta fade-up fade-up-3">
+    <button class="btn-primary">Explore North Carolina →</button>
+    <button class="btn-ghost">Refugee resources</button>
+  </div>
+
+  <div class="hero-scroll">scroll</div>
+</section>
+
+<!-- ── STATE SELECTOR ───────────────────────────────────────── -->
+<div class="state-bar">
+  <div class="state-bar-label">Select your destination state</div>
+  <div class="state-pills">
+    <a href="#" class="state-pill active">North Carolina</a>
+    <a href="#" class="state-pill">Florida</a>
+    <a href="#" class="state-pill">Texas</a>
+    <a href="#" class="state-pill">Georgia</a>
+    <a href="#" class="state-pill">Virginia</a>
+    <a href="#" class="state-pill">Tennessee</a>
+    <a href="#" class="state-pill">South Carolina</a>
+    <a href="#" class="state-pill">Arizona</a>
+    <a href="#" class="state-pill">Colorado</a>
+    <a href="#" class="state-pill more">+ More states coming soon</a>
+  </div>
+</div>
+
+<!-- ── STATS ─────────────────────────────────────────────────── -->
+<div class="stats-strip">
+  <div class="stat"><div class="stat-num">11M+</div><div class="stat-lbl">Population</div></div>
+  <div class="stat"><div class="stat-num">53,819</div><div class="stat-lbl">Sq. miles</div></div>
+  <div class="stat"><div class="stat-num">Raleigh</div><div class="stat-lbl">Capital</div></div>
+  <div class="stat"><div class="stat-num">100</div><div class="stat-lbl">Counties</div></div>
+  <div class="stat"><div class="stat-num">$41,975</div><div class="stat-lbl">Avg. income</div></div>
+  <div class="stat"><div class="stat-num">#1</div><div class="stat-lbl">State for business</div></div>
+</div>
+
+<!-- ── THREE PILLARS ────────────────────────────────────────── -->
+<section class="pillars" id="pillars">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 3rem;">
+      <div class="section-eyebrow">What you'll find here</div>
+      <h2 class="section-title">Everything in one place</h2>
+      <p class="section-sub">Three pillars to guide your journey — from understanding your new state to living and exploring it fully.</p>
+    </div>
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-bar"></div>
+        <div class="pillar-title">About NC</div>
+        <div class="pillar-sub">Government, economy, and people</div>
+        <ul class="pillar-items">
+          <li class="pillar-item">Government structure</li>
+          <li class="pillar-item">Population & demographics</li>
+          <li class="pillar-item">Economy overview</li>
+          <li class="pillar-item">Income & employment</li>
+          <li class="pillar-item">Counties directory</li>
+        </ul>
+        <a href="#" class="pillar-link">Explore →</a>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-bar"></div>
+        <div class="pillar-title">Life in NC</div>
+        <div class="pillar-sub">The essentials of daily living</div>
+        <ul class="pillar-items">
+          <li class="pillar-item">Education & school districts</li>
+          <li class="pillar-item">Housing & real estate</li>
+          <li class="pillar-item">Healthcare & medical</li>
+          <li class="pillar-item">Transportation</li>
+          <li class="pillar-item">Food, shopping & more</li>
+        </ul>
+        <a href="#" class="pillar-link">Explore →</a>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-bar"></div>
+        <div class="pillar-title">Explore NC</div>
+        <div class="pillar-sub">Cultural, natural & historical highlights</div>
+        <ul class="pillar-items">
+          <li class="pillar-item">Arts & music scene</li>
+          <li class="pillar-item">Beaches & outdoors</li>
+          <li class="pillar-item">Festivals & events</li>
+          <li class="pillar-item">Museums & history</li>
+          <li class="pillar-item">Tourism & travel</li>
+        </ul>
+        <a href="#" class="pillar-link">Explore →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT PREVIEW ─────────────────────────────────────────── -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-eyebrow">About North Carolina</div>
+        <h2 class="section-title">A state built for newcomers</h2>
+        <p>North Carolina is one of the fastest-growing states in the United States — a diverse, dynamic state on the southeastern coast with a government structured across 100 counties and a booming economy.</p>
+        <p>From Charlotte's global banking hub to the Research Triangle's biotech innovation, and from the Blue Ridge Mountains to the Atlantic coastline — NC has it all.</p>
+        <div style="margin-top: 1.5rem; display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="btn-primary" style="font-size: 13px; padding: 10px 22px;">Learn more →</button>
+        </div>
+      </div>
+      <div class="about-facts">
+        <div class="fact-card">
+          <div class="fact-val">#1</div>
+          <div class="fact-lbl">CNBC Best State for Business (2023, 2nd consecutive year)</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-val">2.5%</div>
+          <div class="fact-lbl">Corporate income tax — lowest in the nation, phasing out by 2030</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-val">$700B+</div>
+          <div class="fact-lbl">State GDP — among the largest state economies in the U.S.</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-val">300+</div>
+          <div class="fact-lbl">Companies in Research Triangle Park (biotech, software, pharma)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LIFE IN NC PREVIEW ────────────────────────────────────── -->
+<section class="life" id="life">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 2.5rem;">
+      <div class="section-eyebrow">Life in NC</div>
+      <h2 class="section-title">Everything you need, day one</h2>
+      <p class="section-sub">Practical guides for every aspect of daily life in North Carolina — from schools and housing to food and transport.</p>
+    </div>
+    <div class="life-grid">
+      <div class="life-tile">
+        <div class="life-tile-icon">🏫</div>
+        <div class="life-tile-title">Education</div>
+        <div class="life-tile-sub">Public, charter, private, and homeschooling options</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">🏠</div>
+        <div class="life-tile-title">Housing</div>
+        <div class="life-tile-sub">Median home $320K — below the national average</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">🏥</div>
+        <div class="life-tile-title">Healthcare</div>
+        <div class="life-tile-sub">UNC Health, Duke Health, Atrium Health and more</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">🚗</div>
+        <div class="life-tile-title">Transportation</div>
+        <div class="life-tile-sub">Buying a car, GoTriangle, NCDOT tips</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">🍖</div>
+        <div class="life-tile-title">Food & Dining</div>
+        <div class="life-tile-sub">From Bojangles & BBQ to craft brews and fine dining</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">🏀</div>
+        <div class="life-tile-title">Entertainment</div>
+        <div class="life-tile-sub">Panthers, Hornets, Hurricanes, drive-ins & more</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">🛒</div>
+        <div class="life-tile-title">Shopping</div>
+        <div class="life-tile-sub">SA store equivalents + outlet malls guide</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">🌤</div>
+        <div class="life-tile-title">Seasons & Weather</div>
+        <div class="life-tile-sub">Four distinct seasons — mountains to coastline</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">💬</div>
+        <div class="life-tile-title">Slang & Language</div>
+        <div class="life-tile-sub">SA → NC translations + Southern sayings</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">🏘</div>
+        <div class="life-tile-title">Small Town Sights</div>
+        <div class="life-tile-sub">Budget-friendly day trips across the state</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">📻</div>
+        <div class="life-tile-title">Radio Stations</div>
+        <div class="life-tile-sub">Top stations in Triangle, Charlotte & Asheville</div>
+      </div>
+      <div class="life-tile">
+        <div class="life-tile-icon">🐾</div>
+        <div class="life-tile-title">Vets & Pets</div>
+        <div class="life-tile-sub">NC State Vet School — top 5 in the U.S.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPLORE STRIP ─────────────────────────────────────────── -->
+<section class="explore" id="explore">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 2.5rem;">
+      <div class="section-eyebrow">Explore NC</div>
+      <h2 class="section-title">Discover your new backyard</h2>
+      <p class="section-sub">From the Outer Banks to the Blue Ridge Parkway — NC packs in more variety than most countries.</p>
+    </div>
+    <div class="explore-grid">
+      <div class="explore-card">
+        <div class="explore-card-bg"></div>
+        <div class="explore-card-tag">Arts</div>
+        <div class="explore-card-body">
+          <div class="explore-card-title">Arts & Music</div>
+          <div class="explore-card-sub">Nina Simone, bluegrass roots, DPAC Broadway</div>
+        </div>
+      </div>
+      <div class="explore-card">
+        <div class="explore-card-bg"></div>
+        <div class="explore-card-tag">Outdoors</div>
+        <div class="explore-card-body">
+          <div class="explore-card-title">Beaches & Outdoors</div>
+          <div class="explore-card-sub">300+ miles of coastline, Blue Ridge, Great Smoky Mountains</div>
+        </div>
+      </div>
+      <div class="explore-card">
+        <div class="explore-card-bg"></div>
+        <div class="explore-card-tag">Events</div>
+        <div class="explore-card-body">
+          <div class="explore-card-title">Festivals & Events</div>
+          <div class="explore-card-sub">NC State Fair, Dreamville, BBQ Festival & more</div>
+        </div>
+      </div>
+      <div class="explore-card">
+        <div class="explore-card-bg"></div>
+        <div class="explore-card-tag">History</div>
+        <div class="explore-card-body">
+          <div class="explore-card-title">Museums & History</div>
+          <div class="explore-card-sub">Wright Brothers, Biltmore Estate, Civil Rights Museum</div>
+        </div>
+      </div>
+      <div class="explore-card">
+        <div class="explore-card-bg"></div>
+        <div class="explore-card-tag">Travel</div>
+        <div class="explore-card-body">
+          <div class="explore-card-title">Tourism & Travel</div>
+          <div class="explore-card-sub">$35B tourism industry — Charlotte, Asheville, OBX</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PORTAL SECTION ────────────────────────────────────────── -->
+<section class="portal" id="portal">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: 3rem;">
+      <div class="section-eyebrow">Member portal</div>
+      <h2 class="section-title">Your relocation toolkit</h2>
+      <p class="section-sub">Register for free access to step-by-step guidance for every stage of your move — from packing up to settling in.</p>
+    </div>
+    <div class="portal-grid">
+      <div class="portal-card">
+        <div class="portal-icon">✈️</div>
+        <h3>Before you leave</h3>
+        <p>What to prepare, ship, and sort before departing your home country.</p>
+      </div>
+      <div class="portal-card">
+        <div class="portal-icon">💼</div>
+        <h3>Employment</h3>
+        <p>Job boards, résumé tips, and sector guides tailored to each state.</p>
+      </div>
+      <div class="portal-card">
+        <div class="portal-icon">🏫</div>
+        <h3>School districts</h3>
+        <p>Rankings, enrollment steps, and family support resources.</p>
+      </div>
+      <div class="portal-card">
+        <div class="portal-icon">🏡</div>
+        <h3>Housing</h3>
+        <p>Property agents, rental guides, and neighbourhood comparisons.</p>
+      </div>
+      <div class="portal-card">
+        <div class="portal-icon">🪪</div>
+        <h3>IDs & documents</h3>
+        <p>Driver's licence, Social Security, vehicle registration and more.</p>
+      </div>
+      <div class="portal-card">
+        <div class="portal-icon">💳</div>
+        <h3>Banking & credit</h3>
+        <p>Open accounts and start building your U.S. credit history from day one.</p>
+      </div>
+    </div>
+    <div class="portal-cta">
+      <p>Free to register. No hidden fees. Built by settlers, for settlers.</p>
+      <button class="btn-primary" style="font-size: 15px; padding: 15px 40px;">Register for portal access →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── REFUGEE BANNER ────────────────────────────────────────── -->
+<section class="refugee" id="refugees">
+  <div class="refugee-inner">
+    <div class="refugee-badge">Dedicated section</div>
+    <h2>Arriving through a refugee program?</h2>
+    <p>We have a dedicated resource hub for those arriving through formal U.S. refugee programs — covering your legal rights, USCIS resources, resettlement agencies, and community support networks.</p>
+    <div class="refugee-items">
+      <span class="refugee-item">USCIS & legal rights</span>
+      <span class="refugee-item">Work authorization (EAD)</span>
+      <span class="refugee-item">Resettlement agencies in NC</span>
+      <span class="refugee-item">Medicaid eligibility</span>
+      <span class="refugee-item">School enrollment</span>
+      <span class="refugee-item">ESL classes</span>
+      <span class="refugee-item">Legal aid organizations</span>
+      <span class="refugee-item">Financial assistance programs</span>
+    </div>
+    <button class="btn-light">Explore refugee resources →</button>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">Settle<span>Smart</span>USA</div>
+      <p class="footer-brand-desc">Helping newcomers settle, thrive, and feel at home across the United States. Built by settlers, for settlers.</p>
+      <div>
+        <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 8px;">State sites</div>
+        <div class="footer-states">
+          <span class="footer-state" style="color: var(--gold); background: rgba(240,165,0,0.1);">nc ↗</span>
+          <span class="footer-state">fl</span>
+          <span class="footer-state">tx</span>
+          <span class="footer-state">ga</span>
+          <span class="footer-state">va</span>
+          <span class="footer-state">tn</span>
+          <span class="footer-state">sc</span>
+          <span class="footer-state">az</span>
+          <span class="footer-state">co</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <a href="#">Our mission</a>
+      <a href="#" class="active">About NC</a>
+      <a href="#">Life in NC</a>
+      <a href="#">Explore NC</a>
+      <a href="#">Refugee resources</a>
+    </div>
+    <div class="footer-col">
+      <h4>Portal</h4>
+      <a href="#">Register</a>
+      <a href="#">Member login</a>
+      <a href="#">What's included</a>
+      <a href="#">Contact us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy policy</a>
+      <a href="#">Terms of use</a>
+      <a href="#">Disclaimer</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SettleSmartUSA. All rights reserved.</span>
+    <span>Currently viewing: <a href="#">nc.settlesmart.com</a></span>
+  </div>
+</footer>
+
+<script>
+  // Generate stars
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    star.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: ${Math.random() * 100}%; top: ${Math.random() * 100}%;
+      --d: ${Math.random() * 4 + 2}s; --delay: ${Math.random() * 4}s;
+    `;
+    starsContainer.appendChild(star);
+  }
+
+  // State pill switcher
+  document.querySelectorAll('.state-pill').forEach(pill => {
+    pill.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.state-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
